@@ -25,14 +25,14 @@ pipeline {
         stage("Build) {
             steps {
                 echo " ============== start building image =================="
-               set +x
-               if [ -d HelloBooks-Alibaba ]; then rm -rf HelloBooks-Alibaba; fi
-               git clone https://github.com/babadee001/HelloBooks-Alibaba 
-               cd HelloBooks-Alibaba 
-               sudo docker build -t hellobooks . 
-               sudo docker login --username=yourusername registry-intl.yourregion.aliyuncs.com -p $password
-               sudo docker tag [ImageId] registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
-               sudo docker push registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
+                set +x
+                if [ -d HelloBooks-Alibaba ]; then rm -rf HelloBooks-Alibaba; fi
+                git clone https://github.com/babadee001/HelloBooks-Alibaba 
+                cd HelloBooks-Alibaba 
+                sudo docker build -t hellobooks .
+                sudo docker login --username=yourusername registry-intl.yourregion.aliyuncs.com -p $password
+                sudo docker tag [ImageId] registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
+                sudo docker push registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
             }
         }
 
