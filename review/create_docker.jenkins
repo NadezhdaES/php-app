@@ -22,21 +22,18 @@ pipeline {
                 }
             }
         }
-        stage("create docker image") {
+        stage("Build) {
             steps {
                 echo " ============== start building image =================="
-                dir ('docker/toolbox') {
-                	sh 'docker build -t nadezhda96/app:latest .'
-                }
+               set +x
+               if [ -d HelloBooks-Alibaba ]; then rm -rf HelloBooks-Alibaba; fi
+               git clone https://github.com/babadee001/HelloBooks-Alibaba 
+               cd HelloBooks-Alibaba 
+               sudo docker build -t hellobooks . 
+               sudo docker login --username=yourusername registry-intl.yourregion.aliyuncs.com -p $password
+               sudo docker tag [ImageId] registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
+               sudo docker push registry-intl.yourregion.aliyuncs.com/yournamespace/yourrepositoryname:[tag]
             }
         }
-      stage("Push") {
-            steps {
-                echo " ============== start pushing =================="
-                sh '''
-                docker push nadezhda96/app:latest
-                '''
-                }
-           }
-       }
+
 }
